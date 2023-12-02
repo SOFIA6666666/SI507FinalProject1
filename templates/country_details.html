@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Country Details</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .country-info {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+        }
+    
+        .country-info h1, .country-info h2 {
+            color: #444;
+        }
+    
+        .country-info p, .country-info ul {
+            margin-left: 20px;
+        }
+    
+        .country-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    
+        .country-info li {
+            background-color: #f4f4f4;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 4px solid #007bff;
+        }
+    
+        .country-info a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        .country-info a:hover {
+            color: #0056b3;
+        }
+
+
+        
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    
+        .flex-item {
+            flex: 1;
+            min-width: 200px; /* 调整最小宽度以适应内容 */
+        }
+    
+        .flex-item ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    
+        .flex-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    
+        .flex-item a:hover {
+            color: #0056b3;
+        }
+
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 5px;
+        }
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 15px;
+            margin: 3px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #444;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        a {
+            color: #06c;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        .back-to-home {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+    
+        .back-to-home:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="country-info">
+        <div class="header">
+            <h1>{{ country.name }}</h1>
+        </div>
+
+        <div class="flex-container">
+            <div class="flex-item">
+                <p>Official Name: {{ country.official_name }}</p>
+                <p>Population: {{ country.population }}</p>
+                <p>Capital: {{ country.capital | join(', ') }}</p>
+                <p>Region: {{ country.region }}</p>
+                <p>Subregion: {{ country.subregion }}</p>
+                <p>Area: {{ country.area }} km²</p>
+            </div>
+            <div class="flex-item">
+                <h2>Maps</h2>
+                {% if country.maps %}
+                    <ul>
+                    {% for key, url in country.maps.items() %}
+                        <li><a href="{{ url }}" target="_blank">{{ key }} Map</a></li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No maps available.</p>
+                {% endif %}
+            </div>
+            <div class="flex-item">
+                <h2>Languages</h2>
+                {% if country.languages %}
+                    <ul>
+                    {% for code, language in country.languages.items() %}
+                        <li>{{ language }} ({{ code }})</li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No languages available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <a href="/" class="back-to-home">Back to Home</a>
+    
+    
+    <div class="container">
+        
+        <div id="cuisine-container" class="info-section">
+            <h1>Cuisine Information</h1>
+            <!-- Cuisine information will be displayed here -->
+            {% if cuisine_data %}
+                <h2>{{ cuisine_data.name }}</h2>
+                <p><strong>Category:</strong> {{ cuisine_data.category }}</p>
+                <p><strong>Area:</strong> {{ cuisine_data.area }}</p>
+                <p><strong>Instructions:</strong> {{ cuisine_data.instructions }}</p>
+                <img src="{{ cuisine_data.image }}" alt="Cuisine Image" class="responsive-image">
+            {% else %}
+                <p>No cuisine data available.</p>
+            {% endif %}
+        </div>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+        
+        <div id="wildlife-container" class="info-section">
+            <h1>Wildlife Information</h1>
+            <!-- Wildlife information will be displayed here -->
+            {% if wildlife_data %}
+                <h2>{{ wildlife_data.name }}</h2>
+                <p><strong>Weight:</strong> {{ wildlife_data.weight_metric }}</p>
+                <p><strong>Temperament:</strong> {{ wildlife_data.temperament }}</p>
+                <p><strong>Origin:</strong> {{ wildlife_data.origin }}</p>
+                <p><strong>Description:</strong> {{ wildlife_data.description }}</p>
+                {% if wildlife_data.indoor %}
+                    <p><strong>Indoor:</strong> Yes</p>
+                {% else %}
+                    <p><strong>Indoor:</strong> No</p>
+                {% endif %}
+                <img src="{{ wildlife_data.image_url }}" alt="Wildlife Image" class="responsive-image">
+            {% else %}
+                <p>No wildlife data available.</p>
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <!-- <p>Google Map: {{ country.maps[googleMaps] }} </p>
+    <p>openStreet Map: {{ country.maps[openStreetMaps] }} </p> -->
+</body>
+</html>

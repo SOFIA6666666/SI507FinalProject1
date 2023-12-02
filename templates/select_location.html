@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Location</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f3f3;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        form {
+            margin: 20px auto;
+            width: 300px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Choose Country</h2>
+
+    <form action="/country_info/location" method="post">
+        <input type="hidden" name="selected_language" value="{{ selected_language }}">
+        {% if not nearby %}
+        <h4>Choose Nearby Level</h4>
+        <p>
+            "If this value is set to a non-zero number, we will offer a list of countries surrounding your chosen country. The 'Level' indicates the proximity of these countries, as follows:
+    
+            <li>
+                Level 1: Countries that share a border with your selected country.</li>
+            </li>
+            <li>
+                Level 2: Countries that border the neighbors of your selected country.
+            </li>
+            <li>
+                And so on..."
+            </li>
+        </p>
+        <select name="nearby">
+            <option value="{{ 0 }}">{{ 0 }}</option>
+            <option value="{{ 1 }}">{{ 1 }}</option>
+            <option value="{{ 2 }}">{{ 2 }}</option>
+            <option value="{{ 3 }}">{{ 3 }}</option>
+        </select>
+        {% else %}
+        <input type="hidden" name="nearby" value="{{ 0 }}">
+        {% endif %}
+        <select name="location">
+            {% for location in locations %}
+                <option value="{{ location }}">{{ location }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Finish">
+    </form>
+</body>
+</html>

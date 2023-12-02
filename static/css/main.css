@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+button {
+    padding: 5px 10px;
+}
+
+.country-info {
+    margin-top: 20px;
+}
+
+.country-info h2 {
+    color: navy;
+}
+
+.country-info p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1 {
+    color: navy;
+}
+
+p {
+    color: #333;
+}
+

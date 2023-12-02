@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Country Information</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <h1>Country Information</h1>
+    <form method="post" action="/country_info">
+        <!-- <input type="text" name="country_name" placeholder="Enter country name">
+        <button type="submit">Search</button> -->
+        <input type="text" name="search_term" placeholder="Search...">
+        <input type="submit" value="Search">
+    </form>
+    {% if country_data %}
+        <div class="country-info">
+            <h2>{{ country_data.name.common }}</h2>
+            <p><strong>Population:</strong> {{ country_data.population }}</p>
+            <p><strong>Area:</strong> {{ country_data.area }} km²</p>
+            <p><strong>Languages:</strong> 
+                {% for lang in country_data.languages %}
+                    {{ lang }},
+                {% endfor %}
+            </p>
+            <img src="{{ country_data.flags.svg }}" alt="{{ country_data.name.common }} Flag" style="width:100px;height:auto;">
+        </div>
+    {% else %}
+        <p>Enter a country name to see information.</p>
+    {% endif %}
+    <a href="/">Back to Home</a>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

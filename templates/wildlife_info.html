@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wildlife Information</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        .back-to-home {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+    
+        .back-to-home:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wildlife Information</h1>
+    <div id="wildlife-container">
+        <!-- Wildlife information will be displayed here -->
+        {% if wildlife_data %}
+            <h2>{{ wildlife_data.name }}</h2>
+            <p><strong>Weight:</strong> {{ wildlife_data.weight_metric }}</p>
+            <p><strong>Temperament:</strong> {{ wildlife_data.temperament }}</p>
+            <p><strong>Origin:</strong> {{ wildlife_data.origin }}</p>
+            <p><strong>Description:</strong> {{ wildlife_data.description }}</p>
+            <p><strong>Indoor:</strong> {{ wildlife_data.indoor }}</p>
+            <img src="{{ wildlife_data.image_url }}" alt="Wildlife Image" class="responsive-image">
+        {% else %}
+            <p>No wildlife data available.</p>
+        {% endif %}
+    </div>
+    <a href="/" class="back-to-home">Back to Home</a>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

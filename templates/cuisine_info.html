@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cuisine Information</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        .back-to-home {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+    
+        .back-to-home:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cuisine Information</h1>
+    <div id="cuisine-container">
+        <!-- Cuisine information will be displayed here -->
+        {% if cuisine_data %}
+            <h2>{{ cuisine_data.name }}</h2>
+            <p><strong>Category:</strong> {{ cuisine_data.category }}</p>
+            <p><strong>Area:</strong> {{ cuisine_data.area }}</p>
+            <p><strong>Instructions:</strong> {{ cuisine_data.instructions }}</p>
+            <img src="{{ cuisine_data.image }}" alt="Cuisine Image" class="responsive-image">
+        {% else %}
+            <p>No cuisine data available.</p>
+        {% endif %}
+    </div>
+    <a href="/" class="back-to-home">Back to Home</a>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
